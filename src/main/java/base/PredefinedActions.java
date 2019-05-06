@@ -2,6 +2,9 @@ package base;
 
 
 
+import java.util.List;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -46,12 +49,32 @@ public class PredefinedActions {
 			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.name(locatorValue)));
 		case "XPATH":
 			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locatorValue)));
+		case "CSSSELECTOR":
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(locatorValue)));
 		default:
 			return null;
 		}
 
 	}
 
+	private List<WebElement> getElements(String locator) {
+		String locatorType = getLocatorType(locator).toUpperCase(); // id
+		String locatorValue = getLocatorValue(locator);// mngid
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		switch (locatorType) {
+		case "ID":
+			return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id(locatorValue)));
+		case "NAME":
+			return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.name(locatorValue)));
+		case "XPATH":
+			return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(locatorValue)));
+		case "CSSSELECTOR":
+			return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(locatorValue)));
+		default:
+			return null;
+		}
+
+	}
 	private void setBorderVisibility(WebElement element, boolean flag) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		if (flag)
@@ -73,6 +96,7 @@ public class PredefinedActions {
 		setBorderVisibility(element, true);
 		element.click();
 		//setBorderVisibility(element, false);
+	
 	}
 
 	private String getLocatorType(String locator) {
@@ -92,6 +116,24 @@ public class PredefinedActions {
 		} else {
 			throw new ElementNotEnabledException(locator + " is not enabled, expected to be enabled");
 		}
+	}
+	
+	protected String getText(String locator) {
+		WebElement element = getElement(locator);
+		if (element.isEnabled()) {
+			
+			return element.getText();
+			// return;
+		} else {
+			throw new ElementNotEnabledException(locator + " is not enabled, expected to be enabled");
+		}
+	}
+	
+	protected String getAttributeValue(String locator, String attribute)
+	{
+		WebElement element = getElement(locator);
+		return element.getAttribute(attribute);
+		
 	}
 	
 	protected String getPageTitle()
@@ -129,6 +171,33 @@ public class PredefinedActions {
 		{
 			return false;
 		}
+	}
+	
+	protected boolean verifyAlertPresent()
+	{
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions.alertIsPresent());
+			return true;
+		}catch(TimeoutException e)
+		{
+			return false;
+		}
+	}
+		
+	protected String handleAccept()
+	{
+		Alert alert = driver.switchTo().alert();
+		String alertText = alert.getText();
+		alert.accept();
+		return alertText;
+	}
+
+	
+	
+	protected int getTotalRowCount(String locator)
+	{
+		return getElements(locator).size();
 	}
 	
 	
