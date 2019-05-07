@@ -45,10 +45,6 @@ public class OnLineCatalogPageTest extends TestBase {
 		onLineCatalogPage.setQuantity(onlineCatelogPOJO);
 		
 		Assert.assertEquals(onLineCatalogPage.getQuantity(ITEM.TENTS), onlineCatelogPOJO.getDemoTent());
-
-		Assert.assertEquals(onLineCatalogPage.getQuantity(ITEM.BACKPACKS), "888");
-		Assert.assertEquals(onLineCatalogPage.getQuantity(ITEM.SUNGLASS), "777");
-		
 		Assert.assertEquals(onLineCatalogPage.getQuantity(ITEM.BACKPACKS), onlineCatelogPOJO.getFrameBackPack());
 		Assert.assertEquals(onLineCatalogPage.getQuantity(ITEM.SUNGLASS), onlineCatelogPOJO.getSunGlasses());
 		Assert.assertEquals(onLineCatalogPage.getQuantity(ITEM.SOCKS), onlineCatelogPOJO.getPaddedSocks());

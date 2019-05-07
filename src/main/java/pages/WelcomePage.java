@@ -35,6 +35,10 @@ public class WelcomePage extends PredefinedActions {
 		return getPageTitle();
 	}
 
+	public boolean isGMOOnlineWordVisible()
+	{
+		return visiblilityOfElement(propOperation.getValue("gmoOnlineWord"));
+	}
 	public boolean isGMOOnlineButtonVisible() // 
 	{
 		return visiblilityOfElement(propOperation.getValue("gmoOnlineBtn"));
@@ -81,6 +85,10 @@ public class WelcomePage extends PredefinedActions {
 	public void clickBrowseTestPageButton() // 
 	{
 		 click(propOperation.getValue("browserTestPageBtn"));
+	}
+	public String getURLOfWelcomePage() {
+		// TODO Auto-generated method stub
+		return getPageURL();
 	}
 	
 }

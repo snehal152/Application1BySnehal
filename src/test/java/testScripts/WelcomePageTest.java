@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -13,10 +15,21 @@ import pages.WelcomePage;
 
 public class WelcomePageTest extends TestBase{
 
-	@BeforeSuite
+	@BeforeTest
 	public void initialiseTest() throws IOException
 	{
 		WelcomePage welcomePage =start();
+	}
+	
+	@Test
+	public void verifyWordDisplayOnWelcomePage() throws IOException
+	{
+		WelcomePage welcomePage=WelcomePage.getInstance();
+		SoftAssert softAssert=new SoftAssert();
+		softAssert.assertEquals(welcomePage.getTitleOfWelcomePage(), "Welcome to Green Mountain Outpost");
+		softAssert.assertEquals(welcomePage.getURLOfWelcomePage(), "https://demo.borland.com/gmopost/");
+		softAssert.assertTrue(welcomePage.isGMOOnlineWordVisible());
+		softAssert.assertAll();
 	}
 	
 	@Test
@@ -80,7 +93,7 @@ public class WelcomePageTest extends TestBase{
 	}
 	
 	
-	@AfterSuite
+	@AfterTest
 	public void stopTest() throws IOException
 	{
 		stop();
