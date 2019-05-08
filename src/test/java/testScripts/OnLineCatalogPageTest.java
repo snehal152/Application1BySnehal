@@ -1,6 +1,7 @@
 package testScripts;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -78,15 +79,47 @@ public class OnLineCatalogPageTest extends TestBase {
 	}
 	
 	@Test
-	public void verifyPlaceOrderWithoutOrder()
+	public void verifyPlaceOrderWithoutItem() throws IOException
 	{
+		WelcomePage welcomePage =start();
+		//WelcomePage welcomePage=WelcomePage.getInstance();
+		welcomePage.clickGMOOnlineButton();
+		OnLineCatalogPage onLineCatalogPage=OnLineCatalogPage.getInstance();
+		onLineCatalogPage.clickSubmitBtn();
+		Assert.assertTrue(onLineCatalogPage.verifyPlaceAnOrderAlertPresent());
+		Assert.assertEquals(onLineCatalogPage.getTextPlaceAnOrderAlert(), "Please Order Something First");
 		
 	}
 	
-	@Test(dependsOnMethods="verifyResetQuantity")
-	public void verifyItemNumberOrder()
+	@Test(dependsOnMethods="verifySetQuantity")
+	public void verifyPlaceOrderWithItem() throws IOException
 	{
+	
+		OnLineCatalogPage onLineCatalogPage=OnLineCatalogPage.getInstance();
+		onLineCatalogPage.clickSubmitBtn();
+		Assert.assertFalse(onLineCatalogPage.verifyPlaceAnOrderAlertPresent());
+
 		
+	}
+	
+	@Test(dependsOnMethods="verifyBtnVisibilityOnLineCatelogPage")
+	public void verifyItemNumberOrder() throws IOException
+	{
+		OnLineCatalogPage onlineCatalogPage = OnLineCatalogPage.getInstance();
+		ArrayList<Integer> indexList= onlineCatalogPage.getItemIds();
+		
+		Assert.assertTrue(indexList.isEmpty(),"Wrong item ids " + indexList);
+
+		
+	}
+	
+	@Test(dependsOnMethods="verifyBtnVisibilityOnLineCatelogPage")
+	public void verifyProductLink() throws IOException
+	{
+		OnLineCatalogPage onlineCatalogPage = OnLineCatalogPage.getInstance();
+		Assert.assertTrue(onlineCatalogPage.verifyLink(ITEM.TENTS));
+		Assert.assertTrue(onlineCatalogPage.verifyLink(ITEM.BACKPACKS));
+
 		
 	}
 	

@@ -93,9 +93,9 @@ public class PredefinedActions {
 		WebElement element = getElement(locator);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.elementToBeClickable(element));
-		setBorderVisibility(element, true);
+		
 		element.click();
-		//setBorderVisibility(element, false);
+		
 	
 	}
 
@@ -200,5 +200,9 @@ public class PredefinedActions {
 		return getElements(locator).size();
 	}
 	
+	protected String navigateToBack() {
+		driver.navigate().back();
+		return getPageURL();
+	}
 	
 }
