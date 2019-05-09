@@ -173,11 +173,33 @@ public class OnLineCatalogPage extends PredefinedActions {
 			return isElementClickable(propOperation.getValue("BOOTS_Link"));
 		if(item==ITEM.SHORTS)
 			return isElementClickable(propOperation.getValue("SHORTS_Link"));
-			
-		
-		return false;
-		
+				
+		return false;	
 		
 	}
+	
+	public String clickLink(ITEM item) {
+		// TODO Auto-generated method stub
+		if(item==ITEM.TENTS)
+			 click(propOperation.getValue("TENTS_Link"));
+		if(item==ITEM.BACKPACKS)
+			 click(propOperation.getValue("BACKPACKS_Link"));
+		if(item==ITEM.SUNGLASS)
+			 click(propOperation.getValue("SUNGLASS_Link"));
+		if(item==ITEM.SOCKS)
+			 click(propOperation.getValue("SOCKS_Link"));
+		if(item==ITEM.BOOTS)
+			 click(propOperation.getValue("BOOTS_Link"));
+		if(item==ITEM.SHORTS)
+			 click(propOperation.getValue("SHORTS_Link"));
+				
+		return getPageURL();	
+		
+	}
+	public String backToCatalogPage() {
+		// TODO Auto-generated method stub
+		return navigateToBack();
+	}
+	
 	
 }

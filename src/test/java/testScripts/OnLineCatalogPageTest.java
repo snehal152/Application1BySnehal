@@ -123,6 +123,20 @@ public class OnLineCatalogPageTest extends TestBase {
 		
 	}
 	
+	@Test(dependsOnMethods="verifyBtnVisibilityOnLineCatelogPage")
+	public void verifyRedirectLinksOnLineCatelogPage() throws IOException
+	{
+		OnLineCatalogPage onlineCatalogPage = OnLineCatalogPage.getInstance();
+		SoftAssert softAssert= new SoftAssert();
+		softAssert.assertEquals(onlineCatalogPage.clickLink(ITEM.TENTS),"https://demo.borland.com/gmopost/products.htm#tents");
+
+		softAssert.assertEquals(onlineCatalogPage.backToCatalogPage(),"https://demo.borland.com/gmopost/online-catalog.htm");
+		softAssert.assertEquals(onlineCatalogPage.clickLink(ITEM.BACKPACKS),"https://demo.borland.com/gmopost/products.htm#backpacks");
+
+		softAssert.assertAll();
+		
+	}
+	
 	
 }
 
