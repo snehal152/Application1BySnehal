@@ -137,6 +137,15 @@ public class OnLineCatalogPageTest extends TestBase {
 		
 	}
 	
+	@Test(dependsOnMethods="verifyBtnVisibilityOnLineCatelogPage")
+	public void verifyProductPriceOnLineCatelogPage() throws IOException
+	{
+		OnLineCatalogPage onlineCatalogPage = OnLineCatalogPage.getInstance();
+		SoftAssert softAssert= new SoftAssert();
+		System.out.println(onlineCatalogPage.getProductPrice(ITEM.TENTS));
+		System.out.println(onlineCatalogPage.getProductPrice(ITEM.BACKPACKS));
+		
+	}
 	
 }
 
