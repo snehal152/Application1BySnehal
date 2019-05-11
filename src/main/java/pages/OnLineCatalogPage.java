@@ -196,6 +196,28 @@ public class OnLineCatalogPage extends PredefinedActions {
 		return getPageURL();	
 		
 	}
+	
+	
+	public String getProductPrice(ITEM item) {
+		// TODO Auto-generated method stub
+		if(item==ITEM.TENTS)
+			return getAttributeValue(propOperation.getValue("TENTS_Price"),"innerText");
+		if(item==ITEM.BACKPACKS)
+			return	getText(propOperation.getValue("BACKPACKS_Price"));
+		if(item==ITEM.SUNGLASS)
+			return	getText(propOperation.getValue("GLASSES_Price"));
+		if(item==ITEM.SOCKS)
+			return getText(propOperation.getValue("TENTS_Price"));
+		if(item==ITEM.BOOTS)
+			return	getText(propOperation.getValue("TENTS_Price"));
+		if(item==ITEM.SHORTS)
+			return getText(propOperation.getValue("TENTS_Price"));
+				
+		return null;
+		
+	}
+	
+	
 	public String backToCatalogPage() {
 		// TODO Auto-generated method stub
 		return navigateToBack();
