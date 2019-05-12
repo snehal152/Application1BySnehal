@@ -6,6 +6,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -13,17 +15,19 @@ import pages.WelcomePage;
 
 public class WelcomePageTest extends TestBase{
 
-	@BeforeSuite
+	//@BeforeTest
 	public void initialiseTest() throws IOException
 	{
 		WelcomePage welcomePage =start();
 	}
 	
+	@Parameters(value="browser")
 	@Test
-	public void verifyBtnVisibilityOnWelcomePage() throws IOException
+	public void verifyBtnVisibilityOnWelcomePage(String browserName) throws IOException
 	{
-		//WelcomePage welcomePage =start();
-		WelcomePage welcomePage=WelcomePage.getInstance();
+		System.out.println(browserName);
+		WelcomePage welcomePage =start();
+		//WelcomePage welcomePage=WelcomePage.getInstance();
 		SoftAssert softAssert=new SoftAssert();
 
 		boolean gmobuttonVisibleFlag = welcomePage.isGMOOnlineButtonVisible();
@@ -35,6 +39,7 @@ public class WelcomePageTest extends TestBase{
 		boolean aboutSiteFlag = welcomePage.isAboutSiteButtonVisible();
 		softAssert.assertTrue(aboutSiteFlag);
 		
+		welcomePage.takeLogoImage();
 		softAssert.assertAll();
 		
 	}
