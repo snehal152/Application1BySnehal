@@ -85,7 +85,7 @@ public class WelcomePage extends PredefinedActions {
 	
 	public void takeLogoImage() throws IOException
 	{
-		takeElementScreenShot(propOperation.getValue("LogoImg"),"LogoImage");
+		takeElementScreenShot(propOperation.getValue("LogoImg"),"\\LogoImage");
 		
 	}
 }

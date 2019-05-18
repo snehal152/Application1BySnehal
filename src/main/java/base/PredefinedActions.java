@@ -30,8 +30,6 @@ import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
 import ru.yandex.qatools.ashot.comparison.ImageDiffer;
-import ru.yandex.qatools.ashot.coordinates.Coords;
-import ru.yandex.qatools.ashot.coordinates.CoordsProvider;
 import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
 
 public class PredefinedActions {
@@ -230,10 +228,11 @@ public class PredefinedActions {
 		Screenshot targetElement=new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(driver,element);
 		ImageIO.write(targetElement.getImage(), "PNG", new File(snapShot+".png'"));
 		//ImageIO.write
+		FileUtils.copyFile(new File(snapShot+".png'"), new File("F:\\Snehal\\GitWorkspace\\Application1\\Application1BySnehal\\Image\\Logo.png"));
 		
 	}
 	
-	protected void imageCompare(String scrlocator,String expectedImgPath) throws IOException
+	protected boolean imageCompare(String scrlocator,String expectedImgPath) throws IOException
 	{
 		BufferedImage expected=ImageIO.read(new File(expectedImgPath));
 		WebElement element=getElement(scrlocator);
@@ -243,6 +242,6 @@ public class PredefinedActions {
 		ImageDiffer imgDiffer = new ImageDiffer();
 		ImageDiff imageDiff=imgDiffer.makeDiff(expected, actual);
 		
-		
+		return !imageDiff.hasDiff();
 	}
 }

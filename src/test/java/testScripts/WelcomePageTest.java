@@ -23,9 +23,9 @@ public class WelcomePageTest extends TestBase{
 	
 	@Parameters(value="browser")
 	@Test
-	public void verifyBtnVisibilityOnWelcomePage(String browserName) throws IOException
+	public void verifyBtnVisibilityOnWelcomePage() throws IOException
 	{
-		System.out.println(browserName);
+		//System.out.println(browserName);
 		WelcomePage welcomePage =start();
 		//WelcomePage welcomePage=WelcomePage.getInstance();
 		SoftAssert softAssert=new SoftAssert();
