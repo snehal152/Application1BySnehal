@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import base.PredefinedActions;
 import contant.ConstantPath;
+import pages.OnLineCatalogPage.ITEM;
 import pojo.OnlineCatelogPOJO;
 import testScripts.TestBase;
 import util.PropertyFileOperation;
@@ -37,7 +38,7 @@ public class OnLineCatalogPage extends PredefinedActions {
 	
 	public boolean isSubmitBtnVisible()
 	{
-		return visiblilityOfElement(propOperation.getValue("paceAnOrderBtn"));
+		return visiblilityOfElement(propOperation.getValue("placeAnOrderBtn"));
 	}
 
 	public boolean isResetFormBtnClickable()
@@ -150,7 +151,7 @@ public class OnLineCatalogPage extends PredefinedActions {
 		for(int i=3;i<totalRow;i++) // 8 [2-7]
 		{
 			int currentIndex = Integer.parseInt(getText(propOperation.getValue("itemNumber").replace("%x%", String.valueOf(i))));
-			if(currentIndex != (index+1))
+			if(currentIndex == (index+1))
 			{
 				indexNumber.add(currentIndex);
 			}
@@ -158,5 +159,69 @@ public class OnLineCatalogPage extends PredefinedActions {
 		}
 		return indexNumber;
 	}
+	public boolean verifyLink(ITEM item) {
+		// TODO Auto-generated method stub
+		if(item==ITEM.TENTS)
+			return isElementClickable(propOperation.getValue("TENTS_Link"));
+		if(item==ITEM.BACKPACKS)
+			return isElementClickable(propOperation.getValue("BACKPACKS_Link"));
+		if(item==ITEM.SUNGLASS)
+			return isElementClickable(propOperation.getValue("SUNGLASS_Link"));
+		if(item==ITEM.SOCKS)
+			return isElementClickable(propOperation.getValue("SOCKS_Link"));
+		if(item==ITEM.BOOTS)
+			return isElementClickable(propOperation.getValue("BOOTS_Link"));
+		if(item==ITEM.SHORTS)
+			return isElementClickable(propOperation.getValue("SHORTS_Link"));
+				
+		return false;	
+		
+	}
+	
+	public String clickLink(ITEM item) {
+		// TODO Auto-generated method stub
+		if(item==ITEM.TENTS)
+			 click(propOperation.getValue("TENTS_Link"));
+		if(item==ITEM.BACKPACKS)
+			 click(propOperation.getValue("BACKPACKS_Link"));
+		if(item==ITEM.SUNGLASS)
+			 click(propOperation.getValue("SUNGLASS_Link"));
+		if(item==ITEM.SOCKS)
+			 click(propOperation.getValue("SOCKS_Link"));
+		if(item==ITEM.BOOTS)
+			 click(propOperation.getValue("BOOTS_Link"));
+		if(item==ITEM.SHORTS)
+			 click(propOperation.getValue("SHORTS_Link"));
+				
+		return getPageURL();	
+		
+	}
+	
+	
+	public String getProductPrice(ITEM item) {
+		// TODO Auto-generated method stub
+		if(item==ITEM.TENTS)
+			return getAttributeValue(propOperation.getValue("TENTS_Price"),"innerText");
+		if(item==ITEM.BACKPACKS)
+			return	getText(propOperation.getValue("BACKPACKS_Price"));
+		if(item==ITEM.SUNGLASS)
+			return	getText(propOperation.getValue("GLASSES_Price"));
+		if(item==ITEM.SOCKS)
+			return getText(propOperation.getValue("TENTS_Price"));
+		if(item==ITEM.BOOTS)
+			return	getText(propOperation.getValue("TENTS_Price"));
+		if(item==ITEM.SHORTS)
+			return getText(propOperation.getValue("TENTS_Price"));
+				
+		return null;
+		
+	}
+	
+	
+	public String backToCatalogPage() {
+		// TODO Auto-generated method stub
+		return navigateToBack();
+	}
+	
 	
 }

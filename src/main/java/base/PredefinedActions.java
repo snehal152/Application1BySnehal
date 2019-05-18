@@ -1,8 +1,6 @@
 package base;
 
 
-
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -107,9 +105,9 @@ public class PredefinedActions {
 		WebElement element = getElement(locator);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.elementToBeClickable(element));
-		setBorderVisibility(element, true);
+		
 		element.click();
-		//setBorderVisibility(element, false);
+		
 	
 	}
 
@@ -142,6 +140,8 @@ public class PredefinedActions {
 			throw new ElementNotEnabledException(locator + " is not enabled, expected to be enabled");
 		}
 	}
+	
+
 	
 	protected String getAttributeValue(String locator, String attribute)
 	{
@@ -229,7 +229,10 @@ public class PredefinedActions {
 		ImageIO.write(targetElement.getImage(), "PNG", new File(snapShot+".png'"));
 		//ImageIO.write
 		FileUtils.copyFile(new File(snapShot+".png'"), new File("F:\\Snehal\\GitWorkspace\\Application1\\Application1BySnehal\\Image\\Logo.png"));
-		
+	}		
+	protected String navigateToBack() {
+		driver.navigate().back();
+		return getPageURL();
 	}
 	
 	protected boolean imageCompare(String scrlocator,String expectedImgPath) throws IOException
