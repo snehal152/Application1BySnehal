@@ -1,13 +1,20 @@
 package base;
 
 
-
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +24,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import contant.ConstantPath;
 import customExceptions.ElementNotEnabledException;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.comparison.ImageDiff;
+import ru.yandex.qatools.ashot.comparison.ImageDiffer;
+import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
 
 public class PredefinedActions {
 	
@@ -202,9 +214,37 @@ public class PredefinedActions {
 		return getElements(locator).size();
 	}
 	
+	protected void takeScreenShot()
+	{
+		TakesScreenshot screenshot=(TakesScreenshot)driver;
+		screenshot.getScreenshotAs(OutputType.FILE);
+		File srcFile=new File("screenshot");
+	//	FileUtils.copyToFile(srcFile,"File.png");
+	}
+	
+	protected void takeElementScreenShot(String locator,String snapShot) throws IOException
+	{
+		WebElement element=getElement(locator);
+		Screenshot targetElement=new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(driver,element);
+		ImageIO.write(targetElement.getImage(), "PNG", new File(snapShot+".png'"));
+		//ImageIO.write
+		FileUtils.copyFile(new File(snapShot+".png'"), new File("F:\\Snehal\\GitWorkspace\\Application1\\Application1BySnehal\\Image\\Logo.png"));
+	}		
 	protected String navigateToBack() {
 		driver.navigate().back();
 		return getPageURL();
 	}
 	
+	protected boolean imageCompare(String scrlocator,String expectedImgPath) throws IOException
+	{
+		BufferedImage expected=ImageIO.read(new File(expectedImgPath));
+		WebElement element=getElement(scrlocator);
+		Screenshot targetImg=new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(driver, element);
+		BufferedImage actual =targetImg.getImage();
+		
+		ImageDiffer imgDiffer = new ImageDiffer();
+		ImageDiff imageDiff=imgDiffer.makeDiff(expected, actual);
+		
+		return !imageDiff.hasDiff();
+	}
 }
